@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SITES_AVAILABLE=/private/etc/apache2/sites-available/ 
+SITES_ENABLED=/private/etc/apache2/sites-enabled/
+
+if [[ $EUID -ne 0 ]]; then
+	echo >&2 "Can only be run as root"
+	exit
+fi
+
+if [[ -z "$1" ]]; then
+	echo >&2 "Usage: $0 SITE"
+	exit
+fi
+
+site=$1
+
+ln -s $SITES_AVAILABLE$site $SITES_ENABLED
+apachectl restart
