@@ -14,5 +14,5 @@ fi
 
 site=$1
 
-unlink $SITES_ENABLED/$site
+rm $SITES_ENABLED/$site
 apachectl restart
